@@ -6,21 +6,16 @@ import java.util.Objects;
 
 @Entity
 @Table(name = "jugadoracb", schema = "ligaacb", catalog = "")
+@NamedQuery(name = "JugadoracbEntity.findAll", query = "SELECT j FROM JugadoracbEntity j")
 public class JugadoracbEntity {
+    private int idJugador;
+    private int nombreJ;
+    private String pos;
+    private EquipoacbEntity equipoacbByIdEquipo;
+
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Id
     @Column(name = "id_jugador")
-    private int idJugador;
-    @Basic
-    @Column(name = "nombre_j")
-    private int nombreJ;
-    @Basic
-    @Column(name = "pos")
-    private String pos;
-    @Basic
-    @Column(name = "id_equipo")
-    private int idEquipo;
-
     public int getIdJugador() {
         return idJugador;
     }
@@ -29,6 +24,8 @@ public class JugadoracbEntity {
         this.idJugador = idJugador;
     }
 
+    @Basic
+    @Column(name = "nombre_j")
     public int getNombreJ() {
         return nombreJ;
     }
@@ -37,6 +34,8 @@ public class JugadoracbEntity {
         this.nombreJ = nombreJ;
     }
 
+    @Basic
+    @Column(name = "pos")
     public String getPos() {
         return pos;
     }
@@ -45,24 +44,26 @@ public class JugadoracbEntity {
         this.pos = pos;
     }
 
-    public int getIdEquipo() {
-        return idEquipo;
-    }
-
-    public void setIdEquipo(int idEquipo) {
-        this.idEquipo = idEquipo;
-    }
-
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         JugadoracbEntity that = (JugadoracbEntity) o;
-        return idJugador == that.idJugador && nombreJ == that.nombreJ && idEquipo == that.idEquipo && Objects.equals(pos, that.pos);
+        return idJugador == that.idJugador && nombreJ == that.nombreJ && Objects.equals(pos, that.pos);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(idJugador, nombreJ, pos, idEquipo);
+        return Objects.hash(idJugador, nombreJ, pos);
+    }
+
+    @ManyToOne
+    @JoinColumn(name = "id_equipo", referencedColumnName = "id_equipo", nullable = false)
+    public EquipoacbEntity getEquipoacbByIdEquipo() {
+        return equipoacbByIdEquipo;
+    }
+
+    public void setEquipoacbByIdEquipo(EquipoacbEntity equipoacbByIdEquipo) {
+        this.equipoacbByIdEquipo = equipoacbByIdEquipo;
     }
 }

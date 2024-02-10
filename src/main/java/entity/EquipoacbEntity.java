@@ -6,15 +6,14 @@ import java.util.Objects;
 
 @Entity
 @Table(name = "equipoacb", schema = "ligaacb", catalog = "")
+@NamedQuery(name = "EquipoacbEntity.findAll", query = "SELECT e FROM EquipoacbEntity e")
 public class EquipoacbEntity {
+    private int idEquipo;
+    private String nombreE;
+
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Id
     @Column(name = "id_equipo")
-    private int idEquipo;
-    @Basic
-    @Column(name = "nombre_e")
-    private String nombreE;
-
     public int getIdEquipo() {
         return idEquipo;
     }
@@ -23,6 +22,8 @@ public class EquipoacbEntity {
         this.idEquipo = idEquipo;
     }
 
+    @Basic
+    @Column(name = "nombre_e")
     public String getNombreE() {
         return nombreE;
     }
