@@ -268,6 +268,29 @@ public class MainController implements Initializable, IController {
         }
     }
 
+    private int getLastIdEquipo() {
+        try {
+            // Inicia la transacción
+            em.getTransaction().begin();
+
+            // Crea un TypedQuery
+            TypedQuery<Integer> query = em.createNamedQuery("EquipoacbEntity.lastId", Integer.class);
+
+            // Ejecuta la consulta y obtiene el último id
+            int lastId = query.getSingleResult();
+
+            // Commit transacción
+            em.getTransaction().commit();
+
+            // Devuelve el último id
+            return lastId;
+        } catch (Exception e) {
+//            JavaFXUtil.alerta(Alert.AlertType.ERROR, "Error", "Error al obtener el último id de equipo", e.getMessage());
+            System.err.println(e.getMessage());
+            return -1;
+        }
+    }
+
     private void commitTransaction() {
         try {
             // Commit transacción
@@ -317,22 +340,22 @@ public class MainController implements Initializable, IController {
             // Si el modo de operación es crear, inserta el equipo en la base de datos
             if (modoOperacionEquipos == ModoOperacion.CREAR) {
                 em.getTransaction().begin();
-                em.merge(equipo);
-                em.getTransaction().commit();
+                em.persist(equipo);
+//                em.getTransaction().commit();
             }
 
             // Si el modo de operación es modificar, actualiza el equipo en la base de datos
             if (modoOperacionEquipos == ModoOperacion.MODIFICAR) {
                 em.getTransaction().begin();
                 em.merge(equipo);
-                em.getTransaction().commit();
+//                em.getTransaction().commit();
             }
 
             // Si el modo de operación es eliminar, elimina el equipo de la base de datos
             if (modoOperacionEquipos == ModoOperacion.ELIMINAR) {
                 em.getTransaction().begin();
                 em.remove(equipo);
-                em.getTransaction().commit();
+//                em.getTransaction().commit();
             }
 
             // Commit transacción
@@ -424,6 +447,7 @@ public class MainController implements Initializable, IController {
 
         // Crea un nuevo equipo
         equipoActual = new EquipoacbEntity();
+        equipoActual.setIdEquipo(getLastIdEquipo() + 1);
 
         // Asigna el nuevo equipo a la lista de equipos
         equipos.add(equipoActual);

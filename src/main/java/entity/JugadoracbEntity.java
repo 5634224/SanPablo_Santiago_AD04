@@ -7,15 +7,16 @@ import java.util.Objects;
 @Entity
 @Table(name = "jugadoracb", schema = "ligaacb", catalog = "")
 @NamedQuery(name = "JugadoracbEntity.findAll", query = "SELECT j FROM JugadoracbEntity j")
+@NamedQuery(name = "JugadoracbEntity.lastId", query = "SELECT MAX(j.idJugador) FROM JugadoracbEntity j")
 public class JugadoracbEntity {
     private int idJugador;
-    private int nombreJ;
+    private String nombreJ;
     private String pos;
     private EquipoacbEntity equipoacbByIdEquipo;
 
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Id
-    @Column(name = "id_jugador")
+    @Column(name = "id_jugador", nullable = false)
     public int getIdJugador() {
         return idJugador;
     }
@@ -25,17 +26,17 @@ public class JugadoracbEntity {
     }
 
     @Basic
-    @Column(name = "nombre_j")
-    public int getNombreJ() {
+    @Column(name = "nombre_j", nullable = false, length = 60)
+    public String getNombreJ() {
         return nombreJ;
     }
 
-    public void setNombreJ(int nombreJ) {
+    public void setNombreJ(String nombreJ) {
         this.nombreJ = nombreJ;
     }
 
     @Basic
-    @Column(name = "pos")
+    @Column(name = "pos", nullable = false, length = 60)
     public String getPos() {
         return pos;
     }
@@ -49,7 +50,7 @@ public class JugadoracbEntity {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         JugadoracbEntity that = (JugadoracbEntity) o;
-        return idJugador == that.idJugador && nombreJ == that.nombreJ && Objects.equals(pos, that.pos);
+        return idJugador == that.idJugador && Objects.equals(nombreJ, that.nombreJ) && Objects.equals(pos, that.pos);
     }
 
     @Override

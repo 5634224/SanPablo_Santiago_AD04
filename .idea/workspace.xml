@@ -5,35 +5,12 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="3da149ef-cdf6-475f-8cce-d954a568a83f" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/.idea/uiDesigner.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/santiago/sanpablo_santiago_ad04/Escenario.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/santiago/sanpablo_santiago_ad04/IController.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/santiago/sanpablo_santiago_ad04/JavaFXUtil.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/santiago/sanpablo_santiago_ad04/MainApp.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/santiago/sanpablo_santiago_ad04/controller/ModoOperacion.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/resources/META-INF/persistence.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/dataSources.local.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/dataSources.local.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/dataSources.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/dataSources.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/dataSources/3b4b3746-afe8-4243-99d9-8fc7076c3821.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/dataSources/3b4b3746-afe8-4243-99d9-8fc7076c3821/storage_v2/_src_/schema/information_schema.FNRwLQ.meta" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/dataSources/3b4b3746-afe8-4243-99d9-8fc7076c3821/storage_v2/_src_/schema/ligaacb.Cd4mCg.meta" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/dataSources/3b4b3746-afe8-4243-99d9-8fc7076c3821/storage_v2/_src_/schema/mysql.osA4Bg.meta" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/dataSources/3b4b3746-afe8-4243-99d9-8fc7076c3821/storage_v2/_src_/schema/performance_schema.kIw0nw.meta" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/dataSources/91b6c813-08d3-4c57-9050-299b75799db4.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/dataSources/91b6c813-08d3-4c57-9050-299b75799db4/storage_v2/_src_/schema/information_schema.FNRwLQ.meta" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/dataSources/91b6c813-08d3-4c57-9050-299b75799db4/storage_v2/_src_/schema/ligaacb.Cd4mCg.meta" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/dataSources/91b6c813-08d3-4c57-9050-299b75799db4/storage_v2/_src_/schema/mysql.osA4Bg.meta" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/dataSources/91b6c813-08d3-4c57-9050-299b75799db4/storage_v2/_src_/schema/performance_schema.kIw0nw.meta" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/dataSources/3a1fa03f-7350-41e7-ab1d-8bb35bdde8e0.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/dataSources/3a1fa03f-7350-41e7-ab1d-8bb35bdde8e0.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/META-INF/persistence.xml" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/pom.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/santiago/sanpablo_santiago_ad04/HelloApplication.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/santiago/sanpablo_santiago_ad04/HelloController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/santiago/sanpablo_santiago_ad04/controller/MainController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/santiago/sanpablo_santiago_ad04/controller/MainController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/santiago/sanpablo_santiago_ad04/controller/MainController.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/entity/EquipoacbEntity.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/entity/EquipoacbEntity.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/entity/JugadoracbEntity.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/entity/JugadoracbEntity.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/module-info.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/module-info.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/com/santiago/sanpablo_santiago_ad04/hello-view.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/com/santiago/sanpablo_santiago_ad04/mainApp.fxml" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -43,10 +20,10 @@
   <component name="FileTemplateManagerImpl">
     <option name="RECENT_TEMPLATES">
       <list>
-        <option value="Class" />
         <option value="Interface" />
         <option value="FxmlFile" />
         <option value="Enum" />
+        <option value="Class" />
       </list>
     </option>
   </component>
@@ -110,8 +87,8 @@
       <recent name="com.santiago.sanpablo_santiago_ad04" />
     </key>
     <key name="ImportMappingsDialog.RecentPackages">
-      <recent name="entity" />
       <recent name="" />
+      <recent name="entity" />
     </key>
   </component>
   <component name="RunAnythingCache">
@@ -155,12 +132,12 @@
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">
           <url>file://$PROJECT_DIR$/src/main/java/com/santiago/sanpablo_santiago_ad04/controller/MainController.java</url>
-          <line>319</line>
+          <line>342</line>
           <option name="timeStamp" value="2" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">
           <url>file://$PROJECT_DIR$/src/main/java/com/santiago/sanpablo_santiago_ad04/controller/MainController.java</url>
-          <line>307</line>
+          <line>330</line>
           <option name="timeStamp" value="4" />
         </line-breakpoint>
       </breakpoints>

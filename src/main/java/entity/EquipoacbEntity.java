@@ -7,13 +7,14 @@ import java.util.Objects;
 @Entity
 @Table(name = "equipoacb", schema = "ligaacb", catalog = "")
 @NamedQuery(name = "EquipoacbEntity.findAll", query = "SELECT e FROM EquipoacbEntity e")
+@NamedQuery(name = "EquipoacbEntity.lastId", query = "SELECT MAX(e.idEquipo) FROM EquipoacbEntity e")
 public class EquipoacbEntity {
     private int idEquipo;
     private String nombreE;
 
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+//    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Id
-    @Column(name = "id_equipo")
+    @Column(name = "id_equipo", nullable = false)
     public int getIdEquipo() {
         return idEquipo;
     }
@@ -23,7 +24,7 @@ public class EquipoacbEntity {
     }
 
     @Basic
-    @Column(name = "nombre_e")
+    @Column(name = "nombre_e", nullable = false, length = 60)
     public String getNombreE() {
         return nombreE;
     }
