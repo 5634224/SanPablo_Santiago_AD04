@@ -313,13 +313,13 @@ public class MainController implements Initializable, IController {
             TypedQuery<Integer> query = em.createNamedQuery("EquipoacbEntity.lastId", Integer.class);
 
             // Ejecuta la consulta y obtiene el último id
-            int lastId = query.getSingleResult();
+            Integer lastId = query.getSingleResult();
 
             // Commit transacción
             em.getTransaction().commit();
 
             // Devuelve el último id
-            return lastId;
+            return lastId != null ? lastId : 0;
         } catch (Exception e) {
 //            JavaFXUtil.alerta(Alert.AlertType.ERROR, "Error", "Error al obtener el último id de equipo", e.getMessage());
             System.err.println(e.getMessage());
@@ -342,7 +342,7 @@ public class MainController implements Initializable, IController {
             em.getTransaction().commit();
 
             // Devuelve el último id
-            return lastId;
+            return lastId != 0 ? lastId : 0;
         } catch (Exception e) {
             JavaFXUtil.alerta(Alert.AlertType.ERROR, "Error", "Error al obtener el último id de jugador", e.getMessage());
             return -1;

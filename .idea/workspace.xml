@@ -5,15 +5,8 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="3da149ef-cdf6-475f-8cce-d954a568a83f" name="Changes" comment="Ya funcionan las inserciones de equipos">
-      <change afterPath="$PROJECT_DIR$/src/main/resources/com/santiago/sanpablo_santiago_ad04/sytles.css" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/dataSources/3a1fa03f-7350-41e7-ab1d-8bb35bdde8e0.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/dataSources/3a1fa03f-7350-41e7-ab1d-8bb35bdde8e0.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/dataSources/e966e232-214d-451a-beca-a40e21f7c5fc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/dataSources/e966e232-214d-451a-beca-a40e21f7c5fc.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/santiago/sanpablo_santiago_ad04/controller/MainController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/santiago/sanpablo_santiago_ad04/controller/MainController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/santiago/sanpablo_santiago_ad04/controller/ModoOperacion.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/santiago/sanpablo_santiago_ad04/controller/ModoOperacion.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/entity/EquipoacbEntity.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/entity/EquipoacbEntity.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/entity/JugadoracbEntity.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/entity/JugadoracbEntity.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/com/santiago/sanpablo_santiago_ad04/mainApp.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/com/santiago/sanpablo_santiago_ad04/mainApp.fxml" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -124,6 +117,7 @@
       <workItem from="1707590910934" duration="1986000" />
       <workItem from="1707593692812" duration="16205000" />
       <workItem from="1707617978528" duration="3677000" />
+      <workItem from="1707622777841" duration="197000" />
     </task>
     <task id="LOCAL-00001" summary="Ya funcionan las inserciones de equipos">
       <option name="closed" value="true" />
