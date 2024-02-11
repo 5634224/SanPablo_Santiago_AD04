@@ -749,6 +749,7 @@ public class MainController implements Initializable, IController {
 
         // Crea un nuevo jugador
         jugadorActual = new JugadoracbEntity();
+        jugadorActual.setIdJugador(getLastIdJugador() + 1);
 
         // Asigna el nuevo jugador a la lista de jugadores
         jugadores.add(jugadorActual);
