@@ -4,7 +4,7 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="3da149ef-cdf6-475f-8cce-d954a568a83f" name="Changes" comment="Corregido bug de fichajes (cambio de equipo): el mensaje emitido al usuario fallaba, poniendo como anterior y nuevo equipo el mismo.">
+    <list default="true" id="3da149ef-cdf6-475f-8cce-d954a568a83f" name="Changes" comment="Corregido bug por el que salia siempre la ventana de cambio de equipo, incluso cuando no se cambiaba de equipo">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/santiago/sanpablo_santiago_ad04/controller/MainController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/santiago/sanpablo_santiago_ad04/controller/MainController.java" afterDir="false" />
     </list>
@@ -118,7 +118,7 @@
       <workItem from="1707593692812" duration="16205000" />
       <workItem from="1707617978528" duration="3677000" />
       <workItem from="1707622777841" duration="2362000" />
-      <workItem from="1707625723219" duration="5164000" />
+      <workItem from="1707625723219" duration="5718000" />
     </task>
     <task id="LOCAL-00001" summary="Ya funcionan las inserciones de equipos">
       <option name="closed" value="true" />
@@ -152,7 +152,15 @@
       <option name="project" value="LOCAL" />
       <updated>1707630637926</updated>
     </task>
-    <option name="localTasksCounter" value="5" />
+    <task id="LOCAL-00005" summary="Corregido bug por el que salia siempre la ventana de cambio de equipo, incluso cuando no se cambiaba de equipo">
+      <option name="closed" value="true" />
+      <created>1707630984853</created>
+      <option name="number" value="00005" />
+      <option name="presentableId" value="LOCAL-00005" />
+      <option name="project" value="LOCAL" />
+      <updated>1707630984853</updated>
+    </task>
+    <option name="localTasksCounter" value="6" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -163,7 +171,8 @@
     <MESSAGE value="Corregido fallo de getLastId, que saltaba una excepción cuando no había ningún registro" />
     <MESSAGE value="Corregido fallo que hacia que no se insertase en el siguiente último ID" />
     <MESSAGE value="Corregido bug de fichajes (cambio de equipo): el mensaje emitido al usuario fallaba, poniendo como anterior y nuevo equipo el mismo." />
-    <option name="LAST_COMMIT_MESSAGE" value="Corregido bug de fichajes (cambio de equipo): el mensaje emitido al usuario fallaba, poniendo como anterior y nuevo equipo el mismo." />
+    <MESSAGE value="Corregido bug por el que salia siempre la ventana de cambio de equipo, incluso cuando no se cambiaba de equipo" />
+    <option name="LAST_COMMIT_MESSAGE" value="Corregido bug por el que salia siempre la ventana de cambio de equipo, incluso cuando no se cambiaba de equipo" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>

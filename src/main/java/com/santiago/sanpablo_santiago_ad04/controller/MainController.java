@@ -485,10 +485,12 @@ public class MainController implements Initializable, IController {
         try {
             // Deshabilita los campos de edición
             manageCamposEquipos(false);
-            if (modoOperacionEquipos == ModoOperacion.CREAR) clearCamposEquipos();
 
             // Rollback transacción
             if (!rollbackTransaction()) return;
+
+            // Limpia los campos
+            clearCamposEquipos();
 
             // Equipo actual = null
             equipoActual = null;
@@ -560,7 +562,7 @@ public class MainController implements Initializable, IController {
 
             // Deshabilita los campos de edición
             manageCamposJugadores(false);
-            clearCamposEquipos();
+            clearCamposJugadores();
 
             // Jugador actual = null
             jugadorActual = null;
@@ -582,10 +584,12 @@ public class MainController implements Initializable, IController {
         try {
             // Deshabilita los campos de edición
             manageCamposJugadores(false);
-            if (modoOperacionJugadores == ModoOperacion.CREAR) clearCamposJugadores();
 
             // Rollback transacción
             if (!rollbackTransaction()) return;
+
+            // Limpia los campos
+            clearCamposJugadores();
 
             // Jugador actual = null
             jugadorActual = null;
