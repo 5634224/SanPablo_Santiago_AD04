@@ -33,7 +33,6 @@ public class MainController implements Initializable, IController {
     private JugadoracbEntity jugadorActual;
     private ModoOperacion modoOperacionEquipos;
     private ModoOperacion modoOperacionJugadores;
-    private boolean cambioEquipo; // Flag para detectar si se ha cambiado de equipo
     private EquipoacbEntity anteriorEquipo; // Equipo anterior al cambio
 
     @FXML
@@ -567,9 +566,8 @@ public class MainController implements Initializable, IController {
             jugadorActual = null;
 
             // Si ha cambiado de equipo, emite un mensaje avisándole al usuario
-            if (modoOperacionJugadores == ModoOperacion.MODIFICAR && cambioEquipo) {
+            if (modoOperacionJugadores == ModoOperacion.MODIFICAR && !anteriorEquipo.equals(jugador.getEquipoacbByIdEquipo())) {
                 JavaFXUtil.alerta(Alert.AlertType.INFORMATION, "Información", "Cambio de equipo", "El jugador " + jugador.getNombreJ() + " ha sido transferido del equipo " + anteriorEquipo.getNombreE() + " (" + anteriorEquipo.getIdEquipo() + ") al equipo " + jugador.getEquipoacbByIdEquipo().getNombreE() + " (" + jugador.getEquipoacbByIdEquipo().getIdEquipo() + ")");
-                cambioEquipo = false;
                 anteriorEquipo = null;
             }
         } catch (Exception e) {
@@ -776,9 +774,6 @@ public class MainController implements Initializable, IController {
         btnBuscarJugadores.setDisable(false);
         btnJugadores_Aceptar.setText("Modificar");
 
-        // Restablece el flag de cambio de equipo y establece el equipo anterior
-        cambioEquipo = false;
-
         // Cambia el modo de operación a modificar
         modoOperacionJugadores = ModoOperacion.MODIFICAR;
         lblEstadoAccionActualJugadores.setText(modoOperacionJugadores.getDescripcion());
@@ -786,7 +781,7 @@ public class MainController implements Initializable, IController {
 
     @FXML
     public void comboBoxJugadoresEquipo_onAction(ActionEvent actionEvent) {
-        cambioEquipo = true;
+//        cambioEquipo = true;
     }
 
     @FXML

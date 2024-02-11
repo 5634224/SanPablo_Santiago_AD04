@@ -4,10 +4,9 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="3da149ef-cdf6-475f-8cce-d954a568a83f" name="Changes" comment="Corregido fallo que hacia que no se insertase en el siguiente último ID">
+    <list default="true" id="3da149ef-cdf6-475f-8cce-d954a568a83f" name="Changes" comment="Corregido bug de fichajes (cambio de equipo): el mensaje emitido al usuario fallaba, poniendo como anterior y nuevo equipo el mismo.">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/santiago/sanpablo_santiago_ad04/controller/MainController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/santiago/sanpablo_santiago_ad04/controller/MainController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/entity/JugadoracbEntity.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/entity/JugadoracbEntity.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -119,7 +118,7 @@
       <workItem from="1707593692812" duration="16205000" />
       <workItem from="1707617978528" duration="3677000" />
       <workItem from="1707622777841" duration="2362000" />
-      <workItem from="1707625723219" duration="4636000" />
+      <workItem from="1707625723219" duration="5164000" />
     </task>
     <task id="LOCAL-00001" summary="Ya funcionan las inserciones de equipos">
       <option name="closed" value="true" />
@@ -145,7 +144,15 @@
       <option name="project" value="LOCAL" />
       <updated>1707623459994</updated>
     </task>
-    <option name="localTasksCounter" value="4" />
+    <task id="LOCAL-00004" summary="Corregido bug de fichajes (cambio de equipo): el mensaje emitido al usuario fallaba, poniendo como anterior y nuevo equipo el mismo.">
+      <option name="closed" value="true" />
+      <created>1707630637926</created>
+      <option name="number" value="00004" />
+      <option name="presentableId" value="LOCAL-00004" />
+      <option name="project" value="LOCAL" />
+      <updated>1707630637926</updated>
+    </task>
+    <option name="localTasksCounter" value="5" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -155,7 +162,8 @@
     <MESSAGE value="Ya funcionan las inserciones de equipos" />
     <MESSAGE value="Corregido fallo de getLastId, que saltaba una excepción cuando no había ningún registro" />
     <MESSAGE value="Corregido fallo que hacia que no se insertase en el siguiente último ID" />
-    <option name="LAST_COMMIT_MESSAGE" value="Corregido fallo que hacia que no se insertase en el siguiente último ID" />
+    <MESSAGE value="Corregido bug de fichajes (cambio de equipo): el mensaje emitido al usuario fallaba, poniendo como anterior y nuevo equipo el mismo." />
+    <option name="LAST_COMMIT_MESSAGE" value="Corregido bug de fichajes (cambio de equipo): el mensaje emitido al usuario fallaba, poniendo como anterior y nuevo equipo el mismo." />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
@@ -167,12 +175,12 @@
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">
           <url>file://$PROJECT_DIR$/src/main/java/com/santiago/sanpablo_santiago_ad04/controller/MainController.java</url>
-          <line>211</line>
+          <line>210</line>
           <option name="timeStamp" value="7" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">
           <url>file://$PROJECT_DIR$/src/main/java/com/santiago/sanpablo_santiago_ad04/controller/MainController.java</url>
-          <line>197</line>
+          <line>196</line>
           <option name="timeStamp" value="8" />
         </line-breakpoint>
       </breakpoints>
