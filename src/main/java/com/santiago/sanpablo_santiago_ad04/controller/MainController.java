@@ -210,8 +210,10 @@ public class MainController implements Initializable, IController {
         try {
             JugadoracbEntity newSelection = (JugadoracbEntity) o1;
             if (newSelection != null) {
-                anteriorEquipo = newSelection.getEquipoacbByIdEquipo();
+//                anteriorEquipo = jugadorActual != null ? jugadorActual.getEquipoacbByIdEquipo() : null;
                 jugadorActual = newSelection;
+//                if (anteriorEquipo == null) anteriorEquipo = newSelection.getEquipoacbByIdEquipo();
+
                 txtJugadores_id.setText(String.valueOf(newSelection.getIdJugador()));
                 txtJugadores_nombreJugador.setText(newSelection.getNombreJ());
                 txtJugadores_pos.setText(newSelection.getPos());
@@ -510,6 +512,9 @@ public class MainController implements Initializable, IController {
                 return;
             }
 
+            // Guarda una copia del equipo anterior
+            anteriorEquipo = jugador.getEquipoacbByIdEquipo();
+
             // Asigna los datos del jugador
             jugador.setIdJugador(Integer.parseInt(txtJugadores_id.getText()));
             jugador.setNombreJ(txtJugadores_nombreJugador.getText());
@@ -770,6 +775,8 @@ public class MainController implements Initializable, IController {
         manageCamposJugadores(true);
         btnBuscarJugadores.setDisable(false);
         btnJugadores_Aceptar.setText("Modificar");
+
+        // Restablece el flag de cambio de equipo y establece el equipo anterior
         cambioEquipo = false;
 
         // Cambia el modo de operación a modificar

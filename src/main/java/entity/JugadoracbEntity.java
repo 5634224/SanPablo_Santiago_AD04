@@ -14,7 +14,18 @@ public class JugadoracbEntity {
     private String pos;
     private EquipoacbEntity equipoacbByIdEquipo;
 
-//    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    public JugadoracbEntity() {
+    }
+
+    public JugadoracbEntity(JugadoracbEntity jugadoracbentity) {
+        // Constructor por copia
+        this.idJugador = jugadoracbentity.idJugador;
+        this.nombreJ = jugadoracbentity.nombreJ;
+        this.pos = jugadoracbentity.pos;
+        this.equipoacbByIdEquipo = jugadoracbentity.equipoacbByIdEquipo;
+    }
+
+    //    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Id
     @Column(name = "id_jugador", nullable = false)
     public int getIdJugador() {
