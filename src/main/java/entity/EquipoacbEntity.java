@@ -8,6 +8,7 @@ import java.util.Objects;
 @Table(name = "equipoacb", schema = "ligaacb", catalog = "")
 @NamedQuery(name = "EquipoacbEntity.findAll", query = "SELECT e FROM EquipoacbEntity e")
 @NamedQuery(name = "EquipoacbEntity.lastId", query = "SELECT MAX(e.idEquipo) FROM EquipoacbEntity e")
+@NamedQuery(name = "EquipoacbEntity.canDelete", query = "SELECT COUNT(j) FROM JugadoracbEntity j WHERE j.equipoacbByIdEquipo = :equipo")
 public class EquipoacbEntity {
     private int idEquipo;
     private String nombreE;

@@ -4,13 +4,16 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="3da149ef-cdf6-475f-8cce-d954a568a83f" name="Changes" comment="">
+    <list default="true" id="3da149ef-cdf6-475f-8cce-d954a568a83f" name="Changes" comment="Ya funcionan las inserciones de equipos">
+      <change afterPath="$PROJECT_DIR$/src/main/resources/com/santiago/sanpablo_santiago_ad04/sytles.css" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/dataSources/3a1fa03f-7350-41e7-ab1d-8bb35bdde8e0.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/dataSources/3a1fa03f-7350-41e7-ab1d-8bb35bdde8e0.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/dataSources/e966e232-214d-451a-beca-a40e21f7c5fc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/dataSources/e966e232-214d-451a-beca-a40e21f7c5fc.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/pom.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/santiago/sanpablo_santiago_ad04/controller/MainController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/santiago/sanpablo_santiago_ad04/controller/MainController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/santiago/sanpablo_santiago_ad04/controller/ModoOperacion.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/santiago/sanpablo_santiago_ad04/controller/ModoOperacion.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/entity/EquipoacbEntity.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/entity/EquipoacbEntity.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/entity/JugadoracbEntity.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/entity/JugadoracbEntity.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/com/santiago/sanpablo_santiago_ad04/mainApp.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/com/santiago/sanpablo_santiago_ad04/mainApp.fxml" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -24,6 +27,7 @@
         <option value="FxmlFile" />
         <option value="Enum" />
         <option value="Class" />
+        <option value="CSS File" />
       </list>
     </option>
   </component>
@@ -39,42 +43,43 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent"><![CDATA[{
-  "keyToString": {
-    "Application.HelloApplication.executor": "Run",
-    "Application.MainApp.executor": "Run",
-    "Downloaded.Files.Path.Enabled": "false",
-    "JPA.DatabaseSchemaImportDialog": "3a1fa03f-7350-41e7-ab1d-8bb35bdde8e0",
-    "Maven.SanPablo_Santiago_AD04 [clean].executor": "Run",
-    "Maven.SanPablo_Santiago_AD04 [compile].executor": "Run",
-    "Repository.Attach.Annotations": "false",
-    "Repository.Attach.JavaDocs": "false",
-    "Repository.Attach.Sources": "false",
-    "RunOnceActivity.OpenProjectViewOnStart": "true",
-    "RunOnceActivity.ShowReadmeOnStart": "true",
-    "SHARE_PROJECT_CONFIGURATION_FILES": "true",
-    "WebServerToolWindowFactoryState": "false",
-    "git-widget-placeholder": "master",
-    "kotlin-language-version-configured": "true",
-    "last_directory_selection": "/home/santiago/IdeaProjects/SanPablo_Santiago_AD04/src/main/java",
-    "last_opened_file_path": "/home/santiago/IdeaProjects/SanPablo_Santiago_AD04/src/main/java/com/santiago/sanpablo_santiago_ad04",
-    "node.js.detected.package.eslint": "true",
-    "node.js.detected.package.tslint": "true",
-    "node.js.selected.package.eslint": "(autodetect)",
-    "node.js.selected.package.tslint": "(autodetect)",
-    "nodejs_package_manager_path": "npm",
-    "project.structure.last.edited": "Facets",
-    "project.structure.proportion": "0.15",
-    "project.structure.side.proportion": "0.21976672",
-    "vue.rearranger.settings.migration": "true"
+  <component name="PropertiesComponent">{
+  &quot;keyToString&quot;: {
+    &quot;Application.HelloApplication.executor&quot;: &quot;Run&quot;,
+    &quot;Application.MainApp.executor&quot;: &quot;Run&quot;,
+    &quot;Downloaded.Files.Path.Enabled&quot;: &quot;false&quot;,
+    &quot;JPA.DatabaseSchemaImportDialog&quot;: &quot;3a1fa03f-7350-41e7-ab1d-8bb35bdde8e0&quot;,
+    &quot;Maven.SanPablo_Santiago_AD04 [clean].executor&quot;: &quot;Run&quot;,
+    &quot;Maven.SanPablo_Santiago_AD04 [compile].executor&quot;: &quot;Run&quot;,
+    &quot;Repository.Attach.Annotations&quot;: &quot;false&quot;,
+    &quot;Repository.Attach.JavaDocs&quot;: &quot;false&quot;,
+    &quot;Repository.Attach.Sources&quot;: &quot;false&quot;,
+    &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
+    &quot;SHARE_PROJECT_CONFIGURATION_FILES&quot;: &quot;true&quot;,
+    &quot;WebServerToolWindowFactoryState&quot;: &quot;false&quot;,
+    &quot;git-widget-placeholder&quot;: &quot;master&quot;,
+    &quot;kotlin-language-version-configured&quot;: &quot;true&quot;,
+    &quot;last_directory_selection&quot;: &quot;/home/santiago/IdeaProjects/SanPablo_Santiago_AD04/src/main/java&quot;,
+    &quot;last_opened_file_path&quot;: &quot;/home/santiago/IdeaProjects/SanPablo_Santiago_AD04/src/main/java/com/santiago/sanpablo_santiago_ad04&quot;,
+    &quot;list.type.of.created.stylesheet&quot;: &quot;CSS&quot;,
+    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
+    &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
+    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
+    &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
+    &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
+    &quot;project.structure.last.edited&quot;: &quot;Facets&quot;,
+    &quot;project.structure.proportion&quot;: &quot;0.15&quot;,
+    &quot;project.structure.side.proportion&quot;: &quot;0.21976672&quot;,
+    &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
   },
-  "keyToStringList": {
-    "DatabaseDriversLRU": [
-      "mysql",
-      "mariadb"
+  &quot;keyToStringList&quot;: {
+    &quot;DatabaseDriversLRU&quot;: [
+      &quot;mysql&quot;,
+      &quot;mariadb&quot;
     ]
   }
-}]]></component>
+}</component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
       <recent name="$PROJECT_DIR$/src/main/java/com/santiago/sanpablo_santiago_ad04" />
@@ -116,11 +121,27 @@
       <workItem from="1707436519360" duration="5925000" />
       <workItem from="1707444337450" duration="25295000" />
       <workItem from="1707527596417" duration="24034000" />
+      <workItem from="1707590910934" duration="1986000" />
+      <workItem from="1707593692812" duration="16205000" />
+      <workItem from="1707617978528" duration="3677000" />
     </task>
+    <task id="LOCAL-00001" summary="Ya funcionan las inserciones de equipos">
+      <option name="closed" value="true" />
+      <created>1707588035832</created>
+      <option name="number" value="00001" />
+      <option name="presentableId" value="LOCAL-00001" />
+      <option name="project" value="LOCAL" />
+      <updated>1707588035832</updated>
+    </task>
+    <option name="localTasksCounter" value="2" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
     <option name="version" value="3" />
+  </component>
+  <component name="VcsManagerConfiguration">
+    <MESSAGE value="Ya funcionan las inserciones de equipos" />
+    <option name="LAST_COMMIT_MESSAGE" value="Ya funcionan las inserciones de equipos" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
@@ -132,13 +153,13 @@
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">
           <url>file://$PROJECT_DIR$/src/main/java/com/santiago/sanpablo_santiago_ad04/controller/MainController.java</url>
-          <line>342</line>
-          <option name="timeStamp" value="2" />
+          <line>536</line>
+          <option name="timeStamp" value="5" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">
           <url>file://$PROJECT_DIR$/src/main/java/com/santiago/sanpablo_santiago_ad04/controller/MainController.java</url>
-          <line>330</line>
-          <option name="timeStamp" value="4" />
+          <line>448</line>
+          <option name="timeStamp" value="6" />
         </line-breakpoint>
       </breakpoints>
     </breakpoint-manager>

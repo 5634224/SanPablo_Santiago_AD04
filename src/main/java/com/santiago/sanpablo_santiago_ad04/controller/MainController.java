@@ -5,10 +5,7 @@ import com.santiago.sanpablo_santiago_ad04.IController;
 import com.santiago.sanpablo_santiago_ad04.JavaFXUtil;
 import entity.EquipoacbEntity;
 import entity.JugadoracbEntity;
-import jakarta.persistence.EntityManager;
-import jakarta.persistence.EntityManagerFactory;
-import jakarta.persistence.Persistence;
-import jakarta.persistence.TypedQuery;
+import jakarta.persistence.*;
 import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -17,7 +14,10 @@ import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.Pane;
+import org.hibernate.engine.jdbc.spi.SqlExceptionHelper;
+import org.hibernate.exception.ConstraintViolationException;
 
 import java.net.URL;
 import java.util.List;
@@ -33,6 +33,8 @@ public class MainController implements Initializable, IController {
     private JugadoracbEntity jugadorActual;
     private ModoOperacion modoOperacionEquipos;
     private ModoOperacion modoOperacionJugadores;
+    private boolean cambioEquipo; // Flag para detectar si se ha cambiado de equipo
+    private EquipoacbEntity anteriorEquipo; // Equipo anterior al cambio
 
     @FXML
     private TextField txtJugadores_pos;
@@ -43,6 +45,12 @@ public class MainController implements Initializable, IController {
     @FXML
     private TableView tbvEquipos;
     @FXML
+    private AnchorPane pnEquipos_BotonesAccion;
+    @FXML
+    private Button btnEquipos_Aceptar;
+    @FXML
+    private Button btnEquipos_Cancelar;
+    @FXML
     private Button btnJugadores_Aceptar;
     @FXML
     private Button btnModificarJugador;
@@ -51,17 +59,9 @@ public class MainController implements Initializable, IController {
     @FXML
     private Button btnBuscarJugadores;
     @FXML
-    private Pane pnEquipos_BotonesAccion;
-    @FXML
     private TextField txtJugadores_id;
     @FXML
-    private Button btnEquipos_Cancelar;
-    @FXML
     private Button btnCrearJugador;
-    @FXML
-    private Button btnEquipos_Aceptar;
-    @FXML
-    private Pane pnJugadores_BotonesAccion;
     @FXML
     private Button btnEliminarJugador;
     @FXML
@@ -77,6 +77,8 @@ public class MainController implements Initializable, IController {
     @FXML
     private TableView tbvJugadores;
     @FXML
+    private AnchorPane pnJugadores_BotonesAccion;
+    @FXML
     private Button btnJugadores_Cancelar;
     @FXML
     private TableColumn colJugadorEquipo;
@@ -90,6 +92,10 @@ public class MainController implements Initializable, IController {
     private TableColumn colEquiposNombre;
     @FXML
     private TableColumn colJugadorId;
+    @FXML
+    private Label lblEstadoAccionActualEquipos;
+    @FXML
+    private Label lblEstadoAccionActualJugadores;
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
@@ -100,7 +106,9 @@ public class MainController implements Initializable, IController {
 
             // Inicializa los modos de operación
             modoOperacionEquipos = ModoOperacion.NINGUNO;
+            lblEstadoAccionActualEquipos.setText(modoOperacionEquipos.getDescripcion());
             modoOperacionJugadores = ModoOperacion.NINGUNO;
+            lblEstadoAccionActualJugadores.setText(modoOperacionJugadores.getDescripcion());
 
             // Inicializa las observableList
             equipos = FXCollections.observableArrayList();
@@ -148,7 +156,20 @@ public class MainController implements Initializable, IController {
             colJugadorId.setCellValueFactory(new PropertyValueFactory<>("idJugador"));
             colJugadorNombre.setCellValueFactory(new PropertyValueFactory<>("nombreJ"));
             colJugadorPos.setCellValueFactory(new PropertyValueFactory<>("pos"));
-            colJugadorEquipo.setCellValueFactory(new PropertyValueFactory<>("equipoacbByIdEquipo"));
+            colJugadorEquipo.setCellFactory(column -> {
+                return new TableCell<JugadoracbEntity, EquipoacbEntity>() {
+                    @Override
+                    protected void updateItem(EquipoacbEntity item, boolean empty) {
+                        super.updateItem(item, empty);
+
+                        if (item == null || empty) {
+                            setText(null);
+                        } else {
+                            setText(item.getNombreE() + " (" + item.getIdEquipo() + ")");
+                        }
+                    }
+                };
+            });
 
             // Configuracion de los TableView
             tbvEquipos.getSelectionModel().selectedItemProperty().addListener(this::handleEquiposSelectionChanged);
@@ -175,6 +196,7 @@ public class MainController implements Initializable, IController {
         try {
             EquipoacbEntity newSelection = (EquipoacbEntity) o1;
             if (newSelection != null) {
+                equipoActual = newSelection;
                 txtEquipos_id.setText(String.valueOf(newSelection.getIdEquipo()));
                 txtEquipos_nombreEquipo.setText(newSelection.getNombreE());
             }
@@ -188,8 +210,10 @@ public class MainController implements Initializable, IController {
         try {
             JugadoracbEntity newSelection = (JugadoracbEntity) o1;
             if (newSelection != null) {
+                anteriorEquipo = newSelection.getEquipoacbByIdEquipo();
+                jugadorActual = newSelection;
                 txtJugadores_id.setText(String.valueOf(newSelection.getIdJugador()));
-                txtJugadores_nombreJugador.setText(String.valueOf(newSelection.getNombreJ()));
+                txtJugadores_nombreJugador.setText(newSelection.getNombreJ());
                 txtJugadores_pos.setText(newSelection.getPos());
                 comboBoxJugadores_Equipo.getSelectionModel().select(newSelection.getEquipoacbByIdEquipo());
             }
@@ -203,8 +227,9 @@ public class MainController implements Initializable, IController {
         btnBuscarEquipos.setDisable(!habilitar ? false : btnBuscarEquipos.isDisable());
         txtEquipos_nombreEquipo.setEditable(habilitar);
         pnEquipos_BotonesAccion.setVisible(habilitar);
+    }
 
-        // Limpia los campos
+    private void clearCamposEquipos() {
         txtEquipos_id.clear();
         txtEquipos_nombreEquipo.clear();
     }
@@ -216,14 +241,21 @@ public class MainController implements Initializable, IController {
         txtJugadores_pos.setEditable(habilitar);
         comboBoxJugadores_Equipo.setDisable(!habilitar);
         pnJugadores_BotonesAccion.setVisible(habilitar);
+    }
 
-        // Limpia los campos
+    private void clearCamposJugadores() {
         txtJugadores_id.clear();
         txtJugadores_nombreJugador.clear();
+        txtJugadores_pos.clear();
+        comboBoxJugadores_Equipo.getSelectionModel().clearSelection();
     }
 
     private List<EquipoacbEntity> getAllEquipos() {
         try {
+            // Actualiza el modo de operación a consultar
+            modoOperacionEquipos = ModoOperacion.CONSULTAR;
+            lblEstadoAccionActualEquipos.setText(modoOperacionEquipos.getDescripcion());
+
             // Inicia la transacción
             em.getTransaction().begin();
 
@@ -248,6 +280,10 @@ public class MainController implements Initializable, IController {
 
     private List<JugadoracbEntity> getAllJugadores() {
         try {
+            // Actualiza el modo de operación a consultar
+            modoOperacionJugadores = ModoOperacion.CONSULTAR;
+            lblEstadoAccionActualJugadores.setText(modoOperacionJugadores.getDescripcion());
+
             // Inicia la transacción
             em.getTransaction().begin();
 
@@ -291,7 +327,52 @@ public class MainController implements Initializable, IController {
         }
     }
 
-    private void commitTransaction() {
+    private int getLastIdJugador() {
+        try {
+            // Inicia la transacción
+            em.getTransaction().begin();
+
+            // Crea un TypedQuery
+            TypedQuery<Integer> query = em.createNamedQuery("JugadoracbEntity.lastId", Integer.class);
+
+            // Ejecuta la consulta y obtiene el último id
+            int lastId = query.getSingleResult();
+
+            // Commit transacción
+            em.getTransaction().commit();
+
+            // Devuelve el último id
+            return lastId;
+        } catch (Exception e) {
+            JavaFXUtil.alerta(Alert.AlertType.ERROR, "Error", "Error al obtener el último id de jugador", e.getMessage());
+            return -1;
+        }
+    }
+
+    private boolean canDeleteEquipo(EquipoacbEntity equipo) {
+        try {
+            // Inicia la transacción
+            em.getTransaction().begin();
+
+            // Crea un TypedQuery
+            TypedQuery<Long> query = em.createNamedQuery("EquipoacbEntity.canDelete", Long.class);
+            query.setParameter("equipo", equipo);
+
+            // Ejecuta la consulta y obtiene el número de jugadores asociados al equipo
+            long count = query.getSingleResult();
+
+            // Commit transacción
+            em.getTransaction().commit();
+
+            // Devuelve true si no hay jugadores asociados al equipo, false en caso contrario
+            return count == 0;
+        } catch (Exception e) {
+            JavaFXUtil.alerta(Alert.AlertType.ERROR, "Error", "Error al comprobar si se puede eliminar el equipo", e.getMessage());
+            return false;
+        }
+    }
+
+    private boolean commitTransaction() {
         try {
             // Commit transacción
             if (em.getTransaction().isActive())
@@ -302,12 +383,15 @@ public class MainController implements Initializable, IController {
 
             // Actualiza la lista de jugadores
             jugadores.setAll(getAllJugadores());
+
+            return true;
         } catch (Exception e) {
             JavaFXUtil.alerta(Alert.AlertType.ERROR, "Error", "Error al confirmar la transacción", e.getMessage());
+            return false;
         }
     }
 
-    private void rollbackTransaction() {
+    private boolean rollbackTransaction() {
         try {
             // Rollback transacción
             if (em.getTransaction().isActive())
@@ -318,8 +402,11 @@ public class MainController implements Initializable, IController {
 
             // Actualiza la lista de jugadores
             jugadores.setAll(getAllJugadores());
+
+            return true;
         } catch (Exception e) {
             JavaFXUtil.alerta(Alert.AlertType.ERROR, "Error", "Error al deshacer la transacción", e.getMessage());
+            return false;
         }
     }
 
@@ -331,7 +418,10 @@ public class MainController implements Initializable, IController {
             EquipoacbEntity equipo = equipoActual;
 
             // Si el equipo es nulo, no hace nada
-            if (equipo == null) return;
+            if (equipo == null) {
+                JavaFXUtil.alerta(Alert.AlertType.ERROR, "Error", "Equipo no seleccionado", "Seleccione un equipo");
+                return;
+            }
 
             // Asigna los datos del equipo
             equipo.setIdEquipo(Integer.parseInt(txtEquipos_id.getText()));
@@ -341,34 +431,34 @@ public class MainController implements Initializable, IController {
             if (modoOperacionEquipos == ModoOperacion.CREAR) {
                 em.getTransaction().begin();
                 em.persist(equipo);
-//                em.getTransaction().commit();
             }
 
             // Si el modo de operación es modificar, actualiza el equipo en la base de datos
             if (modoOperacionEquipos == ModoOperacion.MODIFICAR) {
                 em.getTransaction().begin();
                 em.merge(equipo);
-//                em.getTransaction().commit();
             }
 
             // Si el modo de operación es eliminar, elimina el equipo de la base de datos
             if (modoOperacionEquipos == ModoOperacion.ELIMINAR) {
+                if (!canDeleteEquipo(equipo)) {
+                    JavaFXUtil.alerta(Alert.AlertType.ERROR, "Error", "No se puede eliminar el equipo", "El equipo tiene jugadores asociados. Por favor, borra primero los jugadores asociados al equipo.");
+                    return;
+                }
                 em.getTransaction().begin();
                 em.remove(equipo);
-//                em.getTransaction().commit();
+//                clearCamposEquipos();
             }
 
             // Commit transacción
-            commitTransaction();
+            if (!commitTransaction()) return;
 
             // Selecciona el equipo en la tabla
-            tbvEquipos.getSelectionModel().select(equipo);
-
-            // Muestra el equipo en la tabla
-            tbvEquipos.scrollTo(equipo);
-
-            // Cambia el modo de operación a ninguno
-            modoOperacionEquipos = ModoOperacion.NINGUNO;
+            if (modoOperacionEquipos != ModoOperacion.ELIMINAR) {
+                tbvEquipos.getSelectionModel().select(equipo);
+                // Muestra el equipo en la tabla
+                tbvEquipos.scrollTo(equipo);
+            }
 
             // Habilita los botones de acción
             btnBuscarEquipos.setDisable(false);
@@ -378,6 +468,10 @@ public class MainController implements Initializable, IController {
 
             // Deshabilita los campos de edición
             manageCamposEquipos(false);
+            clearCamposEquipos();
+
+            // Equipo actual = null
+            equipoActual = null;
         } catch (Exception e) {
             JavaFXUtil.alerta(Alert.AlertType.ERROR, "Error", "Error al confirmar la transacción", e.getMessage());
             System.err.println(e.getMessage());
@@ -387,51 +481,157 @@ public class MainController implements Initializable, IController {
 
     @FXML
     public void btnEquiposCancelar_onAction(ActionEvent actionEvent) {
-        rollbackTransaction();
-        manageCamposEquipos(false);
-        modoOperacionEquipos = ModoOperacion.NINGUNO;
+        try {
+            // Deshabilita los campos de edición
+            manageCamposEquipos(false);
+            if (modoOperacionEquipos == ModoOperacion.CREAR) clearCamposEquipos();
+
+            // Rollback transacción
+            if (!rollbackTransaction()) return;
+
+            // Equipo actual = null
+            equipoActual = null;
+        } catch (Exception e) {
+            JavaFXUtil.alerta(Alert.AlertType.ERROR, "Error", "Error al deshacer la transacción", e.getMessage());
+            System.err.println(e.getMessage());
+        }
     }
 
     @FXML
     public void btnJugadoresAceptar_onAction(ActionEvent actionEvent) {
-        commitTransaction();
-        manageCamposJugadores(false);
-        modoOperacionEquipos = ModoOperacion.NINGUNO;
+        try {
+            // Obtiene el jugador seleccionado
+//            JugadoracbEntity jugador = (JugadoracbEntity) tbvJugadores.getSelectionModel().getSelectedItem();
+            JugadoracbEntity jugador = jugadorActual;
+
+            // Si el jugador es nulo, no hace nada
+            if (jugador == null) {
+                JavaFXUtil.alerta(Alert.AlertType.ERROR, "Error", "Jugador no seleccionado", "Seleccione un jugador");
+                return;
+            }
+
+            // Asigna los datos del jugador
+            jugador.setIdJugador(Integer.parseInt(txtJugadores_id.getText()));
+            jugador.setNombreJ(txtJugadores_nombreJugador.getText());
+            jugador.setPos(txtJugadores_pos.getText());
+            jugador.setEquipoacbByIdEquipo((EquipoacbEntity) comboBoxJugadores_Equipo.getSelectionModel().getSelectedItem());
+
+            // Obtiene el modo de operación
+            ModoOperacion modoOperacionJugadores = this.modoOperacionJugadores;
+
+            // Si el modo de operación es crear, inserta el jugador en la base de datos
+            if (modoOperacionJugadores == ModoOperacion.CREAR) {
+                em.getTransaction().begin();
+                em.persist(jugador);
+            }
+
+            // Si el modo de operación es modificar, actualiza el jugador en la base de datos
+            if (modoOperacionJugadores == ModoOperacion.MODIFICAR) {
+                em.getTransaction().begin();
+                em.merge(jugador);
+            }
+
+            // Si el modo de operación es eliminar, elimina el jugador de la base de datos
+            if (modoOperacionJugadores == ModoOperacion.ELIMINAR) {
+                em.getTransaction().begin();
+                em.remove(jugador);
+//                clearCamposJugadores();
+            }
+
+            // Commit transacción
+            if (!commitTransaction()) return;
+
+            // Selecciona el jugador en la tabla
+            if (modoOperacionJugadores != ModoOperacion.ELIMINAR) {
+                tbvJugadores.getSelectionModel().select(jugador);
+                // Muestra el jugador en la tabla
+                tbvJugadores.scrollTo(jugador);
+            }
+
+            // Habilita los botones de acción
+            btnBuscarJugadores.setDisable(false);
+
+            // Cambia el texto del botón de aceptar
+            btnJugadores_Aceptar.setText("Aceptar");
+
+            // Deshabilita los campos de edición
+            manageCamposJugadores(false);
+            clearCamposEquipos();
+
+            // Jugador actual = null
+            jugadorActual = null;
+
+            // Si ha cambiado de equipo, emite un mensaje avisándole al usuario
+            if (modoOperacionJugadores == ModoOperacion.MODIFICAR && cambioEquipo) {
+                JavaFXUtil.alerta(Alert.AlertType.INFORMATION, "Información", "Cambio de equipo", "El jugador " + jugador.getNombreJ() + " ha sido transferido del equipo " + anteriorEquipo.getNombreE() + " (" + anteriorEquipo.getIdEquipo() + ") al equipo " + jugador.getEquipoacbByIdEquipo().getNombreE() + " (" + jugador.getEquipoacbByIdEquipo().getIdEquipo() + ")");
+                cambioEquipo = false;
+                anteriorEquipo = null;
+            }
+        } catch (Exception e) {
+            JavaFXUtil.alerta(Alert.AlertType.ERROR, "Error", "Error al confirmar la transacción", e.getMessage());
+            System.err.println(e.getMessage());
+            em.getTransaction().rollback();
+        }
     }
 
     @FXML
     public void btnJugadoresCancelar_onAction(ActionEvent actionEvent) {
-        rollbackTransaction();
-        manageCamposJugadores(false);
-        modoOperacionEquipos = ModoOperacion.NINGUNO;
+        try {
+            // Deshabilita los campos de edición
+            manageCamposJugadores(false);
+            if (modoOperacionJugadores == ModoOperacion.CREAR) clearCamposJugadores();
+
+            // Rollback transacción
+            if (!rollbackTransaction()) return;
+
+            // Jugador actual = null
+            jugadorActual = null;
+        } catch (Exception e) {
+            JavaFXUtil.alerta(Alert.AlertType.ERROR, "Error", "Error al deshacer la transacción", e.getMessage());
+            System.err.println(e.getMessage());
+        }
     }
 
     @FXML
     public void btnEquiposBuscar_onAction(ActionEvent actionEvent) {
-        // Obtiene el id del equipo
-        int id = Integer.parseInt(txtEquipos_id.getText());
+        try {
+            // Si el id del equipo es nulo, no hace nada
+            if (txtEquipos_id.getText().isEmpty()) {
+                txtEquipos_nombreEquipo.clear();
+                return;
+            }
 
-        // Inicia la transacción
-        em.getTransaction().begin();
+            // Obtiene el id del equipo
+            int id = Integer.parseInt(txtEquipos_id.getText());
 
-        // Busca el equipo por id
-        EquipoacbEntity equipo = em.find(EquipoacbEntity.class, id);
+            // Inicia la transacción
+            em.getTransaction().begin();
 
-        // Commit transacción
-        em.getTransaction().commit();
+            // Busca el equipo por id
+            EquipoacbEntity equipo = em.find(EquipoacbEntity.class, id);
 
-        // Si el equipo es nulo, no hace nada
-        if (equipo == null) return;
+            // Commit transacción
+            em.getTransaction().commit();
 
-        // Selecciona el equipo en la tabla
-        tbvEquipos.getSelectionModel().select(equipo);
+            // Si el equipo es nulo, vacía los campos y no hace nada
+            if (equipo == null) {
+                txtEquipos_nombreEquipo.clear();
+                return;
+            }
 
-        // Muestra el equipo en la tabla
-        tbvEquipos.scrollTo(equipo);
+            // Selecciona el equipo en la tabla
+            tbvEquipos.getSelectionModel().clearSelection();
+            tbvEquipos.getSelectionModel().select(equipo); // Selecciona el equipo en la tabla y lo guarda en equipoActual
 
-        // Carga el equipo en los campos de edición
-//        txtEquipos_id.setText(String.valueOf(equipo.getIdEquipo()));
-//        txtEquipos_nombreEquipo.setText(equipo.getNombreE());
+            // Muestra el equipo en la tabla
+            tbvEquipos.scrollTo(equipo);
+
+            // Carga el equipo en los campos de edición
+            //        txtEquipos_id.setText(String.valueOf(equipo.getIdEquipo()));
+            //        txtEquipos_nombreEquipo.setText(equipo.getNombreE());
+        } catch (NumberFormatException e) {
+            JavaFXUtil.alerta(Alert.AlertType.ERROR, "Error", "ID incorrecto", "El id del equipo debe ser un número entero");
+        }
     }
 
     @FXML
@@ -441,7 +641,8 @@ public class MainController implements Initializable, IController {
 
     @FXML
     public void btnCrearEquipo_onAction(ActionEvent actionEvent) {
-        manageCamposEquipos(true);
+        manageCamposEquipos(true); // Habilita los campos de edición
+        clearCamposEquipos();
         btnBuscarEquipos.setDisable(true);
         btnEquipos_Aceptar.setText("Crear");
 
@@ -460,34 +661,43 @@ public class MainController implements Initializable, IController {
 
         // Cambia el modo de operación a crear
         modoOperacionEquipos = ModoOperacion.CREAR;
+        lblEstadoAccionActualEquipos.setText(modoOperacionEquipos.getDescripcion());
     }
 
     @FXML
     public void btnModificarEquipo_onAction(ActionEvent actionEvent) {
+        manageCamposEquipos(true); // Habilita los campos de edición
+        btnBuscarEquipos.setDisable(false);
+        btnEquipos_Aceptar.setText("Modificar");
 
+        // Cambia el modo de operación a modificar
+        modoOperacionEquipos = ModoOperacion.MODIFICAR;
+        lblEstadoAccionActualEquipos.setText(modoOperacionEquipos.getDescripcion());
     }
 
     @FXML
     public void btnEliminarEquipo_onAction(ActionEvent actionEvent) {
-        // Cambia el modo de operación a eliminar
-        modoOperacionEquipos = ModoOperacion.ELIMINAR;
-
-        // Deshabilita los botones de acción
-        btnBuscarEquipos.setDisable(true);
-
-        // Cambia el texto del botón de aceptar
+        //manageCamposEquipos(true); // Habilita los campos de edición
+        pnEquipos_BotonesAccion.setVisible(true);
+        btnBuscarEquipos.setDisable(false);
         btnEquipos_Aceptar.setText("Eliminar");
 
-        // Habilita los campos de edición
-        manageCamposEquipos(true);
-
         // Cambia el modo de operación a eliminar
         modoOperacionEquipos = ModoOperacion.ELIMINAR;
+        lblEstadoAccionActualEquipos.setText(modoOperacionEquipos.getDescripcion());
     }
 
     @FXML
     public void btnBuscarJugadores_onAction(ActionEvent actionEvent) {
         try {
+            // Si el id del equipo es nulo, no hace nada
+            if (txtJugadores_id.getText().isEmpty()) {
+                txtJugadores_nombreJugador.clear();
+                txtJugadores_pos.clear();
+                comboBoxJugadores_Equipo.getSelectionModel().clearSelection();
+                return;
+            }
+
             // Obtiene el id del jugador
             int id = Integer.parseInt(txtJugadores_id.getText());
 
@@ -501,10 +711,16 @@ public class MainController implements Initializable, IController {
             em.getTransaction().commit();
 
             // Si el jugador es nulo, no hace nada
-            if (jugador == null) return;
+            if (jugador == null) {
+                txtJugadores_nombreJugador.clear();
+                txtJugadores_pos.clear();
+                comboBoxJugadores_Equipo.getSelectionModel().clearSelection();
+                return;
+            }
 
             // Selecciona el jugador en la tabla
-            tbvJugadores.getSelectionModel().select(jugador);
+            tbvJugadores.getSelectionModel().clearSelection();
+            tbvJugadores.getSelectionModel().select(jugador); // Selecciona el jugador en la tabla y lo guarda en jugadorActual
 
             // Muestra el jugador en la tabla
             tbvJugadores.scrollTo(jugador);
@@ -516,7 +732,6 @@ public class MainController implements Initializable, IController {
 //            comboBoxJugadores_Equipo.getSelectionModel().select(jugador.getEquipoacbByIdEquipo());
         } catch (NumberFormatException e) {
             JavaFXUtil.alerta(Alert.AlertType.ERROR, "Error", "ID incorrecto", "El id del jugador debe ser un número entero");
-            return;
         }
     }
 
@@ -528,17 +743,53 @@ public class MainController implements Initializable, IController {
     @FXML
     public void btnCrearJugador_onAction(ActionEvent actionEvent) {
         manageCamposJugadores(true);
+        clearCamposJugadores();
         btnBuscarJugadores.setDisable(true);
         btnJugadores_Aceptar.setText("Crear");
+
+        // Crea un nuevo jugador
+        jugadorActual = new JugadoracbEntity();
+
+        // Asigna el nuevo jugador a la lista de jugadores
+        jugadores.add(jugadorActual);
+
+        // Asigna el nuevo jugador a la tabla de jugadores
+        tbvJugadores.getSelectionModel().select(jugadorActual);
+
+        // Muestra el nuevo jugador en la tabla de jugadores
+        tbvJugadores.scrollTo(jugadorActual);
+
+        // Cambia el modo de operación a crear
+        modoOperacionJugadores = ModoOperacion.CREAR;
+        lblEstadoAccionActualJugadores.setText(modoOperacionJugadores.getDescripcion());
     }
 
     @FXML
     public void btnModificarJugador_onAction(ActionEvent actionEvent) {
+        manageCamposJugadores(true);
+        btnBuscarJugadores.setDisable(false);
+        btnJugadores_Aceptar.setText("Modificar");
+        cambioEquipo = false;
 
+        // Cambia el modo de operación a modificar
+        modoOperacionJugadores = ModoOperacion.MODIFICAR;
+        lblEstadoAccionActualJugadores.setText(modoOperacionJugadores.getDescripcion());
+    }
+
+    @FXML
+    public void comboBoxJugadoresEquipo_onAction(ActionEvent actionEvent) {
+        cambioEquipo = true;
     }
 
     @FXML
     public void btnEliminarJugador_onAction(ActionEvent actionEvent) {
+//        manageCamposJugadores(true);
+        pnJugadores_BotonesAccion.setVisible(true);
+        btnBuscarJugadores.setDisable(false);
+        btnJugadores_Aceptar.setText("Eliminar");
 
+        // Cambia el modo de operación a eliminar
+        modoOperacionJugadores = ModoOperacion.ELIMINAR;
+        lblEstadoAccionActualJugadores.setText(modoOperacionJugadores.getDescripcion());
     }
 }

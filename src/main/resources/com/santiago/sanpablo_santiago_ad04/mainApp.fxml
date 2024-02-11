@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.ComboBox?>
 <?import javafx.scene.control.Label?>
@@ -9,14 +10,14 @@
 <?import javafx.scene.control.TableView?>
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.control.Tooltip?>
+<?import javafx.scene.control.cell.PropertyValueFactory?>
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
-<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.VBox?>
 
-<?import javafx.scene.control.cell.PropertyValueFactory?>
-<VBox alignment="CENTER" prefHeight="537.0" prefWidth="616.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.santiago.sanpablo_santiago_ad04.controller.MainController">
+<VBox alignment="CENTER" prefHeight="537.0" prefWidth="616.0" stylesheets="@sytles.css" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.santiago.sanpablo_santiago_ad04.controller.MainController">
    <children>
       <TabPane tabClosingPolicy="UNAVAILABLE" VBox.vgrow="ALWAYS">
         <tabs>
@@ -40,14 +41,14 @@
                               <Tooltip text="Buscar" />
                            </tooltip>
                         </Button>
-                        <TableView fx:id="tbvEquipos" layoutX="14.0" layoutY="97.0" prefHeight="369.0" prefWidth="585.0" AnchorPane.bottomAnchor="11.0" AnchorPane.leftAnchor="14.0" AnchorPane.rightAnchor="17.0" AnchorPane.topAnchor="126.0">
+                        <TableView fx:id="tbvEquipos" layoutX="14.0" layoutY="97.0" prefHeight="340.0" prefWidth="585.0" AnchorPane.bottomAnchor="40.0" AnchorPane.leftAnchor="14.0" AnchorPane.rightAnchor="17.0" AnchorPane.topAnchor="126.0">
                           <columns>
-                              <TableColumn fx:id="colEquiposId" text="ID" prefWidth="100.0">
+                              <TableColumn fx:id="colEquiposId" prefWidth="100.0" text="ID">
                                   <cellValueFactory>
                                       <PropertyValueFactory property="idEquipo" />
                                   </cellValueFactory>
                               </TableColumn>
-                              <TableColumn fx:id="colEquiposNombre" text="Nombre" prefWidth="493.0">
+                              <TableColumn fx:id="colEquiposNombre" prefWidth="493.0" text="Nombre">
                                   <cellValueFactory>
                                       <PropertyValueFactory property="nombreE" />
                                   </cellValueFactory>
@@ -59,13 +60,21 @@
                         </TableView>
                         <Button fx:id="btnCrearEquipo" layoutX="14.0" layoutY="93.0" mnemonicParsing="false" onAction="#btnCrearEquipo_onAction" text="Crear equipo" />
                         <Button fx:id="btnModificarEquipo" layoutX="127.0" layoutY="93.0" mnemonicParsing="false" onAction="#btnModificarEquipo_onAction" text="Modificar equipo" />
-                        <Pane fx:id="pnEquipos_BotonesAccion" layoutX="449.0" layoutY="6.0" prefHeight="112.0" prefWidth="150.0" AnchorPane.rightAnchor="17.0" AnchorPane.topAnchor="6.0">
+                        <AnchorPane fx:id="pnEquipos_BotonesAccion" layoutX="449.0" layoutY="6.0" prefHeight="112.0" prefWidth="135.0" AnchorPane.rightAnchor="17.0" AnchorPane.topAnchor="6.0">
                            <children>
-                              <Button fx:id="btnEquipos_Aceptar" layoutX="63.0" layoutY="44.0" mnemonicParsing="false" onAction="#btnEquiposAceptar_onAction" text="Aceptar" />
-                              <Button fx:id="btnEquipos_Cancelar" layoutX="57.0" layoutY="74.0" mnemonicParsing="false" onAction="#btnEquiposCancelar_onAction" text="Cancelar" />
+                              <Button fx:id="btnEquipos_Aceptar" layoutX="66.0" layoutY="14.0" mnemonicParsing="false" onAction="#btnEquiposAceptar_onAction" text="Aceptar" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="14.0" />
+                              <Button fx:id="btnEquipos_Cancelar" layoutX="59.0" layoutY="46.0" mnemonicParsing="false" onAction="#btnEquiposCancelar_onAction" text="Cancelar" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="46.0" />
                            </children>
-                        </Pane>
+                        </AnchorPane>
                         <Button fx:id="btnEliminarEquipo" layoutX="266.0" layoutY="93.0" mnemonicParsing="false" onAction="#btnEliminarEquipo_onAction" text="Eliminar equipo" />
+                        <HBox layoutX="27.0" layoutY="466.0" prefHeight="32.0" prefWidth="200.0" styleClass="back-light-grey" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0">
+                           <children>
+                              <Label fx:id="lblEstadoAccionActualEquipos" text="Estado actual modo de operación" />
+                           </children>
+                           <padding>
+                              <Insets bottom="8.0" left="8.0" right="8.0" top="8.0" />
+                           </padding>
+                        </HBox>
                      </children>
                   </AnchorPane>
             </content>
@@ -90,7 +99,7 @@
                               <Tooltip text="Buscar" />
                           </tooltip>
                       </Button>
-                      <TableView fx:id="tbvJugadores" layoutX="14.0" layoutY="223.0" prefHeight="272.0" prefWidth="585.0" AnchorPane.bottomAnchor="11.0" AnchorPane.leftAnchor="14.0" AnchorPane.rightAnchor="17.0" AnchorPane.topAnchor="223.0">
+                      <TableView fx:id="tbvJugadores" layoutX="14.0" layoutY="203.0" prefHeight="264.0" prefWidth="585.0" AnchorPane.bottomAnchor="39.0" AnchorPane.leftAnchor="14.0" AnchorPane.rightAnchor="17.0" AnchorPane.topAnchor="203.0">
                           <columns>
                               <TableColumn fx:id="colJugadorId" prefWidth="100.0" text="Id">
                                   <cellValueFactory>
@@ -117,19 +126,27 @@
                               <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
                            </columnResizePolicy>
                       </TableView>
-                      <Button fx:id="btnCrearJugador" layoutX="14.0" layoutY="193.0" mnemonicParsing="false" onAction="#btnCrearJugador_onAction" text="Crear jugador" />
-                      <Button fx:id="btnModificarJugador" layoutX="127.0" layoutY="193.0" mnemonicParsing="false" onAction="#btnModificarJugador_onAction" text="Modificar jugador" />
-                      <Pane fx:id="pnJugadores_BotonesAccion" layoutX="449.0" layoutY="6.0" prefHeight="112.0" prefWidth="150.0" AnchorPane.rightAnchor="17.0" AnchorPane.topAnchor="6.0">
-                          <children>
-                              <Button fx:id="btnJugadores_Aceptar" layoutX="63.0" layoutY="44.0" mnemonicParsing="false" onAction="#btnJugadoresAceptar_onAction" text="Aceptar" />
-                              <Button fx:id="btnJugadores_Cancelar" layoutX="57.0" layoutY="74.0" mnemonicParsing="false" onAction="#btnJugadoresCancelar_onAction" text="Cancelar" />
-                          </children>
-                      </Pane>
-                      <Button fx:id="btnEliminarJugador" layoutX="266.0" layoutY="193.0" mnemonicParsing="false" onAction="#btnEliminarJugador_onAction" text="Eliminar jugador" />
+                      <Button fx:id="btnCrearJugador" layoutX="14.0" layoutY="172.0" mnemonicParsing="false" onAction="#btnCrearJugador_onAction" text="Crear jugador" />
+                      <Button fx:id="btnModificarJugador" layoutX="127.0" layoutY="172.0" mnemonicParsing="false" onAction="#btnModificarJugador_onAction" text="Modificar jugador" />
+                        <AnchorPane fx:id="pnJugadores_BotonesAccion" layoutX="449.0" layoutY="6.0" prefHeight="112.0" prefWidth="135.0" AnchorPane.rightAnchor="17.0" AnchorPane.topAnchor="6.0">
+                           <children>
+                              <Button fx:id="btnJugadores_Aceptar" layoutX="63.0" layoutY="14.0" mnemonicParsing="false" onAction="#btnJugadoresAceptar_onAction" text="Aceptar" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="14.0" />
+                              <Button fx:id="btnJugadores_Cancelar" layoutX="63.0" layoutY="44.0" mnemonicParsing="false" onAction="#btnJugadoresCancelar_onAction" text="Cancelar" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="46.0" />
+                           </children>
+                        </AnchorPane>
+                      <Button fx:id="btnEliminarJugador" layoutX="266.0" layoutY="172.0" mnemonicParsing="false" onAction="#btnEliminarJugador_onAction" text="Eliminar jugador" />
                         <Label layoutX="96.0" layoutY="102.0" text="Pos" />
                         <TextField fx:id="txtJugadores_pos" layoutX="138.0" layoutY="94.0" prefHeight="32.0" AnchorPane.leftAnchor="138.0" AnchorPane.rightAnchor="307.0" />
                         <Label layoutX="74.0" layoutY="141.0" text="Equipo" />
-                        <ComboBox fx:id="comboBoxJugadores_Equipo" layoutX="138.0" layoutY="133.0" prefHeight="32.0" prefWidth="171.0" AnchorPane.leftAnchor="138.0" AnchorPane.rightAnchor="307.0" />
+                        <ComboBox fx:id="comboBoxJugadores_Equipo" layoutX="138.0" layoutY="133.0" onAction="#comboBoxJugadoresEquipo_onAction" prefHeight="32.0" prefWidth="171.0" AnchorPane.leftAnchor="138.0" AnchorPane.rightAnchor="307.0" />
+                        <HBox layoutX="14.0" layoutY="467.0" prefHeight="32.0" prefWidth="200.0" styleClass="back-light-grey" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0">
+                           <children>
+                              <Label fx:id="lblEstadoAccionActualJugadores" text="Estado actual modo de operación" />
+                           </children>
+                           <padding>
+                              <Insets bottom="8.0" left="8.0" right="8.0" top="8.0" />
+                           </padding>
+                        </HBox>
                   </children>
               </AnchorPane>
             </content>

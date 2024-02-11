@@ -14,7 +14,7 @@ public class JugadoracbEntity {
     private String pos;
     private EquipoacbEntity equipoacbByIdEquipo;
 
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+//    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Id
     @Column(name = "id_jugador", nullable = false)
     public int getIdJugador() {
